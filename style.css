@@ -113,18 +113,20 @@ header{
     margin-top: 10px;
   }
 }
-/* @media(max-width:753px){
-  header nav ul li button{
-    font-weight: 500;
-    font-size: .6em;
-  }
-  header{
-    width: 100%;
+@media(max-width: 428px){
+header{
+  width: 100%;
     display: flex;
-    justify-content: space-between;
-
-  }
-} */
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 5px;
+}
+.leftside{
+  display: flex;
+  align-items: center;
+  gap: .5em;
+}
+}
 .categories {
   display: flex;
   gap: 15px;
