@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kitab Hub</title>
   <link rel="stylesheet" href="style.css">
   <link
@@ -16,8 +16,8 @@
   <!-- Header -->
   <header>
     <div class="logo">
-      <a href="/index.html">
-        <img src="images/kitab2-removebg-preview.png" alt="Bookstore Logo" style="width: 100px;height: 90px;">
+      <a href="index.html">
+        <img src="images/kitab2-removebg-preview.png" alt="Bookstore Logo" style="width:100px;height:90px;">
       </a>
     </div>
 
@@ -31,16 +31,15 @@
         <li><button onclick="filterCategory('audiobooks')">Audiobooks</button></li>
         <li><button onclick="filterCategory('nigerian')">Nigerian Authors</button></li>
         <li><button onclick="filterCategory('codehub')">CodeHub Books</button></li>
-        <div class="hide">
-          <li><button onclick="filterCategory('cart')">Go to cart</button></li>
-        </div>
+        <li><button onclick="filterCategory('all')">All Books</button></li>
+        <li><button onclick="window.location.href='otherhtmlfiles/cart.html'">Go to cart</button></li>
       </ul>
     </nav>
 
     <div class="leftside">
-      <button class="signup"><a href="./otherhtmlfiles/login.html">Sign Up</a></button>
+      <button class="signup"><a href="otherhtmlfiles/login.html">Sign Up</a></button>
       <div class="cart">
-        <a href="/otherhtmlfiles/cart.html"><i class="fa-solid fa-cart-shopping"></i></a>
+        <a href="otherhtmlfiles/cart.html"><i class="fa-solid fa-cart-shopping"></i></a>
       </div>
     </div>
   </header>
@@ -51,21 +50,26 @@
   <!-- Products -->
   <div id="products"></div>
 
-  <!-- Include your existing products.js -->
   <script src="products.js"></script>
-
   <script>
     // Mobile menu toggle
     const menuToggle = document.getElementById("menuToggle");
     const nav = document.querySelector("header nav");
-    menuToggle.addEventListener("click", () => {
-      nav.classList.toggle("show");
-    });
+    menuToggle.addEventListener("click", () => nav.classList.toggle("show"));
 
-    // Initialize display of all products from products.js
+    // Display all products initially
     displayProducts(allProducts);
 
-    // Search filter is already in products.js
+    // Search
+    const searchInput = document.getElementById("search");
+    searchInput.addEventListener("input", e => {
+      const value = e.target.value.toLowerCase();
+      const filtered = allProducts
+        .filter(p => currentCategory === "all" || p.category === currentCategory)
+        .filter(p => p.name.toLowerCase().includes(value));
+      displayProducts(filtered);
+    });
   </script>
 </body>
 </html>
+v

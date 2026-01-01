@@ -1,4 +1,3 @@
-// All products array
 const allProducts = [
   // Islamic Books
   {id: 1, name: "تفسير القران", price: 2800, category: "islamic", image: "images/tafseer.jfif"},
@@ -20,7 +19,7 @@ const allProducts = [
   {id: 13, name: "Things Fall Apart", price: 3800, category: "nigerian", image: "images/things fall apart.jpg"},
   {id: 14, name: "Half of a Yellow Sun", price: 4000, category: "nigerian", image: "images/half of a yellow.webp"},
   {id: 15, name: "Blessings", price: 2000, category: "nigerian", image: "images/Blessings.jfif"},
-    {id: 16, name: "Broken", price: 7000, category: "nigerian", image: "images/Broken.jfif"},
+  {id: 16, name: "Broken", price: 7000, category: "nigerian", image: "images/Broken.jfif"},
 
   // CodeHub Books
   {id: 17, name: "HTML & CSS Guide", price: 12500, category: "codehub", image: "images/html-css.webp"},
@@ -28,8 +27,6 @@ const allProducts = [
 ];
 
 const productsDiv = document.getElementById("products");
-const searchInput = document.getElementById("search");
-
 let currentCategory = "all";
 
 function displayProducts(items) {
@@ -37,8 +34,7 @@ function displayProducts(items) {
   items.forEach(product => {
     productsDiv.innerHTML += `
       <div class="product">
-        <img src="${product.image}" alt="${product.name}" 
-             onerror="this.onerror=null;this.src='images/placeholder.png';">
+        <img src="${product.image}" alt="${product.name}" onerror="this.onerror=null;this.src='images/placeholder.png';">
         <h3>${product.name}</h3>
         <p>₦${product.price}</p>
         <button onclick="addToCart(${product.id})">Add to Cart</button>
@@ -47,21 +43,14 @@ function displayProducts(items) {
   });
 }
 
-// Add to cart
 function addToCart(id) {
   const product = allProducts.find(p => p.id === id);
-  if(!product) {
-    console.error("Product not found:", id);
-    return;
-  }
-
+  if(!product) return;
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
   const item = cart.find(i => i.id === id);
   if(item) item.qty++;
-  else cart.push({...product, qty: 1});
-
+  else cart.push({...product, qty:1});
   localStorage.setItem("cart", JSON.stringify(cart));
-  console.log("Cart saved:", cart); 
   alert(`${product.name} added to cart`);
 }
 
@@ -70,14 +59,3 @@ function filterCategory(categoryName) {
   const filtered = categoryName === "all" ? allProducts : allProducts.filter(p => p.category === categoryName);
   displayProducts(filtered);
 }
-
-searchInput.addEventListener("input", e => {
-  const value = e.target.value.toLowerCase();
-  const filtered = allProducts
-    .filter(p => currentCategory === "all" || p.category === currentCategory)
-    .filter(p => p.name.toLowerCase().includes(value));
-  displayProducts(filtered);
-});
-
-
-displayProducts(allProducts);
