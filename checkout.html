@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Checkout</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="style.css">
+</head>
+<style>
+  ul li a{
+    text-decoration: none;
+    color: #38bdf8;
+  }
+</style>
+<body>
+
+  <header>
+    <div class="logo">
+      <a href="index.html"><img src="images/kitab2-removebg-preview.png" alt="Bookstore Logo" height="60"></a>
+    </div>
+          </div>
+
+      <div class="menu-toggle" id="menuToggle">
+        <i class="fa-solid fa-bars"></i>
+      </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="cart.html">Cart</a></li>
+        <li><a href="checkout.html" class="active">Checkout</a></li>
+        <li><a href="./orders.html">My orders</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <h2 style="padding:20px;">Order Summary</h2>
+  <div id="checkout-items" style="padding: 20px;"></div>
+  <h3 style="padding:20px;">Total: ₦<span id="total">0</span></h3>
+  <button id="placeOrderBtn" style="margin:20px; padding:10px 20px;">Place Order</button>
+
+  <script type="module">
+    import { auth, db } from "./firebase.js";
+    import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    const checkoutDiv = document.getElementById('checkout-items');
+    const totalEl = document.getElementById('total');
+    const placeOrderBtn = document.getElementById('placeOrderBtn');
+
+    // Load cart from localStorage
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    function renderCheckout() {
+      checkoutDiv.innerHTML = '';
+      let total = 0;
+
+      if (cart.length === 0) {
+        checkoutDiv.innerHTML = '<p>Your cart is empty!</p>';
+        totalEl.textContent = 0;
+        return;
+      }
+
+      cart.forEach(item => {
+        total += item.price * item.qty;
+        checkoutDiv.innerHTML += `
+          <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px; display:flex; gap:10px;">
+            <img src="${item.image}" width="80"
+                 onerror="this.onerror=null;this.src='images/placeholder.png';">
+            <div>
+              <strong>${item.name}</strong><br>
+              ₦${item.price} x ${item.qty} = ₦${item.price * item.qty}
+            </div>
+          </div>
+        `;
+      });
+
+      totalEl.textContent = total;
+    }
+
+    placeOrderBtn.addEventListener("click", async () => {
+      if (cart.length === 0) {
+        alert("Cart is empty");
+        return;
+      }
+
+      const user = auth.currentUser;
+      const userId = user ? user.uid : "testUser123";
+
+      try {
+        await addDoc(collection(db, "orders"), {
+          userId: userId,
+          items: cart,
+          total: Number(totalEl.textContent),
+          createdAt: serverTimestamp()
+        });
+
+        localStorage.removeItem("cart");
+        alert("Order placed successfully!");
+        window.location.href = "index.html";
+
+      } catch (error) {
+        console.error("Failed to place order:", error);
+        alert("Failed to place order. Check Firestore rules or login status.");
+      }
+    });
+
+    renderCheckout();
+          // Mobile menu toggle
+    const menuToggle = document.getElementById("menuToggle");
+    const nav = document.querySelector("header nav");
+    menuToggle.addEventListener("click", () => {
+      nav.classList.toggle("show");
+    });
+
+  </script>
+</body>
+</html>

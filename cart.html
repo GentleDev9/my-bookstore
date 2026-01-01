@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="./cart.css" />
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <a href="index.html">
+          <img
+            src="images/kitab_hub-removebg-preview.png"
+            alt="Bookstore Logo"
+            height="60"
+          />
+        </a>
+      </div>
+
+      <div class="menu-toggle" id="menuToggle">
+        <i class="fa-solid fa-bars"></i>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="cart.html" class="active">Cart</a></li>
+          <li><a href="checkout.html">Checkout</a></li>
+          <li><a href="./orders.html">My orders</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <h2 style="padding: 20px">Your Cart</h2>
+
+    <div id="cart-items" style="padding: 20px"></div>
+
+    <h3 style="padding: 20px">Total: ₦<span id="total">0</span></h3>
+
+    <div style="padding: 20px">
+      <a href="checkout.html">
+        <button style="padding: 10px 20px" class="button">
+          Proceed to Checkout
+        </button>
+      </a>
+    </div>
+
+    <script>
+      const cartDiv = document.getElementById("cart-items");
+      const totalEl = document.getElementById("total");
+
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+      function renderCart() {
+        cartDiv.innerHTML = "";
+        let total = 0;
+
+        if (cart.length === 0) {
+          cartDiv.innerHTML = "<p>Your cart is empty.</p>";
+          totalEl.textContent = 0;
+          return;
+        }
+
+        cart.forEach((item, index) => {
+          total += item.price * item.qty;
+
+          cartDiv.innerHTML += `
+        <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px; display:flex; gap:10px; align-items:center;">
+          
+          <img src="${item.image}" width="80" height="80" style="object-fit:cover;"
+               onerror="this.onerror=null;this.src='images/placeholder.png';">
+
+          <div style="flex:1;">
+            <strong>${item.name}</strong><br>
+            ₦${item.price} x ${item.qty}
+          </div>
+
+          <div>
+            <button onclick="increaseQty(${index})">+</button>
+            <button onclick="decreaseQty(${index})">-</button>
+            <button onclick="removeItem(${index})">Remove</button>
+          </div>
+
+        </div>
+      `;
+        });
+
+        totalEl.textContent = total;
+        localStorage.setItem("cart", JSON.stringify(cart));
+      }
+
+      function increaseQty(index) {
+        cart[index].qty++;
+        renderCart();
+      }
+
+      function decreaseQty(index) {
+        if (cart[index].qty > 1) {
+          cart[index].qty--;
+        } else {
+          cart.splice(index, 1);
+        }
+        renderCart();
+      }
+
+      function removeItem(index) {
+        cart.splice(index, 1);
+        renderCart();
+      }
+
+      renderCart();
+          // Mobile menu toggle
+    const menuToggle = document.getElementById("menuToggle");
+    const nav = document.querySelector("header nav");
+    menuToggle.addEventListener("click", () => {
+      nav.classList.toggle("show");
+    });
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kitab Hub</title>
+  <link rel="stylesheet" href="style.css">
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <a href="index.html">
+        <img src="images/kitab2-removebg-preview.png" alt="Bookstore Logo" style="width: 200px;height: 90px;">
+      </a>
+    </div>
+
+    <div class="menu-toggle" id="menuToggle">
+      <i class="fa-solid fa-bars"></i>
+    </div>
+
+    <nav>
+      <ul>
+        <li><button onclick="filterCategory('islamic')">Islamic Books</button></li>
+        <li><button onclick="filterCategory('audiobooks')">Audiobooks</button></li>
+        <li><button onclick="filterCategory('nigerian')">Nigerian Authors</button></li>
+        <li><button onclick="filterCategory('codehub')">CodeHub Books</button></li>
+      </ul>
+    </nav>
+
+    <div class="leftside">
+      <button class="signup"><a href="login.html">Sign Up</a></button>
+      <div class="cart">
+        <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a> Go to cart
+      </div>
+    </div>
+  </header>
+
+  <!-- Search -->
+  <input type="text" id="search" placeholder="Search products...">
+
+  <!-- Products -->
+  <div id="products"></div>
+
+  <!-- Include your existing products.js -->
+  <script src="products.js"></script>
+
+  <script>
+    // Mobile menu toggle
+    const menuToggle = document.getElementById("menuToggle");
+    const nav = document.querySelector("header nav");
+    menuToggle.addEventListener("click", () => {
+      nav.classList.toggle("show");
+    });
+
+    // Initialize display of all products from products.js
+    displayProducts(allProducts);
+
+    // Search filter is already in products.js
+  </script>
+</body>
+</html>

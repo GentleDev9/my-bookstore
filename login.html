@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login / Signup</title>
+      <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  <link rel="stylesheet" href="style.css">
+</head>
+<style>
+  ul li a{
+    text-decoration: none;
+    color: #38bdf8;
+  }
+</style>
+<body>
+
+  <!-- Header -->
+  <header>
+          <div class="menu-toggle" id="menuToggle">
+        <i class="fa-solid fa-bars"></i>
+      </div>
+    <div class="logo">
+      <a href="index.html"><img src="images/kitab2-removebg-preview.png" alt="Bookstore Logo" height="60"></a>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="login.html" class="active">Login / Signup</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div style="padding:20px; max-width:400px; margin:auto;">
+    <h2>Login</h2>
+    <input type="email" id="loginEmail" placeholder="Email" style="width:100%; padding:8px; margin-bottom:10px;">
+    <input type="password" id="loginPassword" placeholder="Password" style="width:100%; padding:8px; margin-bottom:10px;">
+    <button id="loginBtn" style="width:100%; padding:10px;">Login</button>
+
+    <h2 style="margin-top:20px;">Signup</h2>
+    <input type="email" id="signupEmail" placeholder="Email" style="width:100%; padding:8px; margin-bottom:10px;">
+    <input type="password" id="signupPassword" placeholder="Password" style="width:100%; padding:8px; margin-bottom:10px;">
+    <button id="signupBtn" style="width:100%; padding:10px;">Signup</button>
+  </div>
+
+<script type="module">
+  import { auth } from "./firebase.js";
+  import {
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword
+  } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+  const loginEmail = document.getElementById('loginEmail');
+  const loginPassword = document.getElementById('loginPassword');
+  const loginBtn = document.getElementById('loginBtn');
+
+  const signupEmail = document.getElementById('signupEmail');
+  const signupPassword = document.getElementById('signupPassword');
+  const signupBtn = document.getElementById('signupBtn');
+
+  // -----------------------
+  // Signup
+  // -----------------------
+  signupBtn.addEventListener("click", async () => {
+    const email = signupEmail.value.trim();
+    const password = signupPassword.value.trim();
+
+    if (!email || !password) {
+      alert("Please enter email and password");
+      return;
+    }
+
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      alert("Signup successful!");
+      window.location.href = "index.html"; // redirect only after success
+    } catch (error) {
+      console.error(error);
+      alert("Signup failed: " + error.message);
+    }
+  });
+
+  // -----------------------
+  // Login
+  // -----------------------
+  loginBtn.addEventListener("click", async () => {
+    const email = loginEmail.value.trim();
+    const password = loginPassword.value.trim();
+
+    if (!email || !password) {
+      alert("Please enter email and password");
+      return;
+    }
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      alert("Login successful!");
+      window.location.href = "index.html"; // redirect only after success
+    } catch (error) {
+      console.error(error);
+      alert("Login failed: " + error.message);
+    }
+  });
+      const menuToggle = document.getElementById("menuToggle");
+    const nav = document.querySelector("header nav");
+    menuToggle.addEventListener("click", () => {
+      nav.classList.toggle("show");
+    });
+</script>
+
+</body>
+</html>
