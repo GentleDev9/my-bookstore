@@ -117,6 +117,7 @@ header{
 header{
   width: 100%;
     display: flex;
+    gap: 1em;
   align-items: center;
   justify-content: space-between;
   padding: 0px 5px;
@@ -127,7 +128,7 @@ header{
   gap: .5em;
 }
 .menu-toggle{
-  font-size: .8em;
+  font-size: .4em;
 }
 }
 .categories {
