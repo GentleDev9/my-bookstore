@@ -42,7 +42,9 @@ header nav ul li button {
   font-weight: bold;
   transition: color 0.3s;
 }
-
+.hide{
+  display: none;
+}
 header nav ul li button:hover {
   color: #007bff;
 }
@@ -126,11 +128,15 @@ header{
 .leftside{
   display: flex;
   align-items: center;
-  gap: .5em;
+  gap: 1em;
 }
-.menu-toggle{
-  font-size: .4em;
+.fa-cart-shopping{
+  display: none;
 }
+.hide{
+  display: block;
+}
+
 }
 .categories {
   display: flex;
