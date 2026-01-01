@@ -126,6 +126,9 @@ header{
   align-items: center;
   gap: .5em;
 }
+.menu-toggle{
+  font-size: .8em;
+}
 }
 .categories {
   display: flex;
