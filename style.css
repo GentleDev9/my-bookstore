@@ -68,7 +68,9 @@ border: none;
 .signup:hover{
   background-color: #22d3ee;
 }
-
+.cart{
+  display: grid;
+}
 .leftside{
   color: #38bdf8;
 }
@@ -133,8 +135,8 @@ header{
   border: thin solid black;
 }
 
-.cart{
-  display: none;
+.hide{
+  display: block;
 }
 
 }
