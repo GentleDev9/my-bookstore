@@ -20,7 +20,6 @@
 </style>
 <body>
 
-  <!-- Header -->
   <header>
           <div class="menu-toggle" id="menuToggle">
         <i class="fa-solid fa-bars"></i>
@@ -63,9 +62,7 @@
   const signupPassword = document.getElementById('signupPassword');
   const signupBtn = document.getElementById('signupBtn');
 
-  // -----------------------
-  // Signup
-  // -----------------------
+
   signupBtn.addEventListener("click", async () => {
     const email = signupEmail.value.trim();
     const password = signupPassword.value.trim();
@@ -78,16 +75,13 @@
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       alert("Signup successful!");
-      window.location.href = "index.html"; // redirect only after success
+      window.location.href = "index.html"; 
     } catch (error) {
       console.error(error);
       alert("Signup failed: " + error.message);
     }
   });
 
-  // -----------------------
-  // Login
-  // -----------------------
   loginBtn.addEventListener("click", async () => {
     const email = loginEmail.value.trim();
     const password = loginPassword.value.trim();
@@ -100,7 +94,7 @@
     try {
       await signInWithEmailAndPassword(auth, email, password);
       alert("Login successful!");
-      window.location.href = "index.html"; // redirect only after success
+      window.location.href = "index.html"; 
     } catch (error) {
       console.error(error);
       alert("Login failed: " + error.message);

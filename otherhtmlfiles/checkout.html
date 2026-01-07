@@ -36,7 +36,7 @@
   </style>
 </head>
 <body>
-  <!-- Header -->
+
   <header>
     <div class="logo">
       <a href="../index.html">
@@ -57,7 +57,7 @@
     </nav>
   </header>
 
-  <!-- Checkout content -->
+  
   <h2 style="padding:20px;">Order Summary</h2>
   <div id="checkout-items" style="padding:20px;"></div>
   <h3 style="padding:20px;">Total: ₦<span id="total">0</span></h3>
@@ -68,7 +68,7 @@
     const totalEl = document.getElementById('total');
     const placeOrderBtn = document.getElementById('placeOrderBtn');
 
-    // Load cart from localStorage
+
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
     function renderCheckout() {
@@ -108,13 +108,13 @@
       cart = [];
       renderCheckout();
       alert("Order placed successfully!");
-      // Redirect to homepage
+    
       window.location.href = "../index.html";
     });
 
     renderCheckout();
 
-    // Mobile menu toggle
+    
     const menuToggle = document.getElementById("menuToggle");
     const nav = document.querySelector("header nav");
     menuToggle.addEventListener("click", () => {
