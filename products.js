@@ -18,7 +18,7 @@ const allProducts = [
   // Nigerian Authors
   {id: 13, name: "Things Fall Apart", price: 3800, category: "nigerian", image: "images/things fall apart.jpg"},
   {id: 14, name: "Half of a Yellow Sun", price: 4000, category: "nigerian", image: "images/half of a yellow.webp"},
-  {id: 15, name: "Blessings", price: 2000, category: "nigerian", image: "images/Blessings.jfif"},
+  {id: 15, name: "Blessings", price: 2000, category: "nigerian", image: "images/blessings.jfif"},
   {id: 16, name: "Broken", price: 7000, category: "nigerian", image: "images/Broken.jfif"},
 
   // CodeHub Books
